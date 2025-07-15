@@ -15,6 +15,15 @@ class driver extends uvm_driver #(transaction);
       super.new(name, parent);
    endfunction
 
+   // Build phase to set the virtual interface
+   function void build_phase(uvm_phase phase);
+      super.build_phase(phase);
+      // Get the virtual interface from the configuration database
+      if (!uvm_config_db#(virtual adder_if)::get(this, "", "adder_if_inst", vif)) begin
+         `uvm_fatal("DRIVER", "Virtual interface not found in config DB")
+      end
+   endfunction
+   
    // Main method to drive the transaction
    virtual task run_phase(uvm_phase phase);
       transaction tr;

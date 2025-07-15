@@ -22,7 +22,8 @@ class env extends uvm_env;
 
    function void build_phase(uvm_phase phase);
       super.build_phase(phase);
-
+      // Print that the environment is being built
+      `uvm_info("ENV", "Building environment", UVM_LOW)
       // Create components
       seqr = sequencer::type_id::create("seqr", this);
       drv = driver::type_id::create("drv", this);
@@ -32,6 +33,9 @@ class env extends uvm_env;
 
    function void connect_phase(uvm_phase phase);
       super.connect_phase(phase);
+
+      // Print that the environment is connecting components
+      `uvm_info("ENV", "Connecting driver and sequencer ports", UVM_LOW)
 
       // Connect the driver to the sequencer
       drv.seq_item_port.connect(seqr.seq_item_export);

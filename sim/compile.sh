@@ -1,6 +1,13 @@
 # Same as 'setmentor' command
 source /eda/scripts/init_questa_core_prime
 
+# If the "work" directory exists, delete it
+if [ -d work ]; then
+   echo "Deleting existing 'work' directory..."
+   vdel -all
+fi
+vlib work
+
 # Function to compile a file with error handling
 compile_file() {
    local cmd="$1"
@@ -14,9 +21,6 @@ compile_file() {
       exit 1
   fi
 }
-
-vdel -all
-vlib work
 
 # Compile the files
 
