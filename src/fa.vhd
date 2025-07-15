@@ -1,22 +1,24 @@
-library ieee; 
-use ieee.std_logic_1164.all; 
+Library ieee;
+Use ieee.std_logic_1164.All;
 
-entity FA is 
-        generic ( DFAS: time := 0 ns;
-		  DFAC: time := 0 ns);
-	Port (	A:	In	std_logic;
-		B:	In	std_logic;
-		Ci:	In	std_logic;
-		S:	Out	std_logic;
-		Co:	Out	std_logic);
-end FA; 
+Entity FA Is
+	Generic (
+		DFAS : Time := 0 ns;
+		DFAC : Time := 0 ns);
+	Port (
+		A : In Std_logic;
+		B : In Std_logic;
+		Ci : In Std_logic;
+		S : Out Std_logic;
+		Co : Out Std_logic);
+End FA;
 
-architecture BEHAVIORAL of FA is
+Architecture BEHAVIORAL Of FA Is
 
-begin
+Begin
 
-  S <= A xor B xor Ci after DFAS;
-  Co <= (A and B) or (B and Ci) or (A and Ci) after DFAC;
-  -- Co <= (A and B) or (B and Ci) or (A and Ci);
-  
-end BEHAVIORAL;
+	S <= A Xor B Xor Ci After DFAS;
+	Co <= (A And B) Or (B And Ci) Or (A And Ci) After DFAC;
+	-- Co <= (A and B) or (B and Ci) or (A and Ci);
+
+End BEHAVIORAL;

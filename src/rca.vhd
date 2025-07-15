@@ -1,43 +1,40 @@
-library ieee; 
-use ieee.std_logic_1164.all; 
-use ieee.std_logic_unsigned.all;
+Library ieee;
+Use ieee.std_logic_1164.All;
+Use ieee.std_logic_unsigned.All;
 
-entity RCA is 
-	generic (DRCAS : 	Time := 0 ns;
-	         DRCAC : 	Time := 0 ns;
-		 NBIT  :     Integer := 8);
-	Port (	A:	In	std_logic_vector(NBIT-1 downto 0);
-		B:	In	std_logic_vector(NBIT-1 downto 0);
-		Ci:	In	std_logic;
-		S:	Out	std_logic_vector(NBIT-1 downto 0);
-		Co:	Out	std_logic);
-end RCA; 
+Entity RCA Is
+	Generic (NBIT : Integer := 8);
+	Port (
+		A : In Std_logic_vector(NBIT - 1 Downto 0);
+		B : In Std_logic_vector(NBIT - 1 Downto 0);
+		Ci : In Std_logic;
+		S : Out Std_logic_vector(NBIT - 1 Downto 0);
+		Co : Out Std_logic);
+End RCA;
 
-architecture STRUCTURAL of RCA is
+Architecture STRUCTURAL Of RCA Is
 
-  signal STMP : std_logic_vector(NBIT-1 downto 0);
-  signal CTMP : std_logic_vector(NBIT downto 0);
+	Signal STMP : Std_logic_vector(NBIT - 1 Downto 0);
+	Signal CTMP : Std_logic_vector(NBIT Downto 0);
 
-  component FA 
-  generic (DFAS : 	Time := 0 ns;
-           DFAC : 	Time := 0 ns);
-  Port ( A:	In	std_logic;
-	 B:	In	std_logic;
-	 Ci:	In	std_logic;
-	 S:	Out	std_logic;
-	 Co:	Out	std_logic);
-  end component; 
+	Component FA
+		Port (
+			A : In Std_logic;
+			B : In Std_logic;
+			Ci : In Std_logic;
+			S : Out Std_logic;
+			Co : Out Std_logic);
+	End Component;
 
-begin
+Begin
 
-  CTMP(0) <= Ci;
-  S <= STMP;
-  Co <= CTMP(NBIT);
-  
-  ADDER1: for I in 1 to NBIT generate
-    FAI : FA 
-	  generic map (DFAS => DRCAS, DFAC => DRCAC) 
-	  Port Map (A(I-1), B(I-1), CTMP(I-1), STMP(I-1), CTMP(I)); 
-  end generate;
+	CTMP(0) <= Ci;
+	S <= STMP;
+	Co <= CTMP(NBIT);
 
-end STRUCTURAL;
+	ADDER1 : For I In 1 To NBIT Generate
+		FAI : FA
+		Port Map(A(I - 1), B(I - 1), CTMP(I - 1), STMP(I - 1), CTMP(I));
+	End Generate;
+
+End STRUCTURAL;

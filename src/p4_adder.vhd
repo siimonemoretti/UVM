@@ -77,11 +77,11 @@ Begin
 		End Generate;
 
 		if_others : If ((i /= 0) And (i /= (N_BIT/N_BPB))) Generate
-			c_prop(i) <= c_out_cg(i-1);
+			c_prop(i) <= c_out_cg(i - 1);
 		End Generate;
 
-		if_last: If i = (N_BIT/N_BPB) Generate
-			c_out <= c_out_cg(i-1);
+		if_last : If i = (N_BIT/N_BPB) Generate
+			c_out <= c_out_cg(i - 1);
 		End Generate;
 	End Generate wiring;
 

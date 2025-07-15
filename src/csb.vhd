@@ -1,49 +1,39 @@
-library ieee; 
-use ieee.std_logic_1164.all; 
-use ieee.std_logic_unsigned.all;
+Library ieee;
+Use ieee.std_logic_1164.All;
+Use ieee.std_logic_unsigned.All;
 
-entity CSB is 
-	generic (DCSBS : 	Time := 0 ns;
-		DCSBC: 		Time := 0 ns;
-		N  :     Integer := 8);
-	Port (	A:	In	std_logic_vector(N-1 downto 0);
-		B:	In	std_logic_vector(N-1 downto 0);
-		Ci:	In	std_logic;
-		S:	Out	std_logic_vector(N-1 downto 0));
-end CSB; 
+Entity CSB Is
+	Generic (N : Integer := 8);
+	Port (
+		A : In Std_logic_vector(N - 1 Downto 0);
+		B : In Std_logic_vector(N - 1 Downto 0);
+		Ci : In Std_logic;
+		S : Out Std_logic_vector(N - 1 Downto 0));
+End CSB;
 
-architecture STRUCTURAL of CSB is
-  constant N_bits: Integer := 4;
+Architecture STRUCTURAL Of CSB Is
+	Constant N_bits : Integer := 4;
 
-  signal STMP1, STMP2 : std_logic_vector(N-1 downto 0);
-  component RCA 
-  generic (DRCAS : 	Time := 0 ns;
-	         DRCAC : 	Time := 0 ns;
-		 NBIT  :     Integer := 8);
-  Port (	A:	In	std_logic_vector(NBIT-1 downto 0);
-		B:	In	std_logic_vector(NBIT-1 downto 0);
-		Ci:	In	std_logic;
-		S:	Out	std_logic_vector(NBIT-1 downto 0);
-		Co:	Out	std_logic);
-  end component; 
+	Signal STMP1, STMP2 : Std_logic_vector(N - 1 Downto 0);
+	Component RCA
+		Generic (NBIT : Integer := 8);
+		Port (
+			A : In Std_logic_vector(NBIT - 1 Downto 0);
+			B : In Std_logic_vector(NBIT - 1 Downto 0);
+			Ci : In Std_logic;
+			S : Out Std_logic_vector(NBIT - 1 Downto 0);
+			Co : Out Std_logic);
+	End Component;
 
-begin
+Begin
 
-  S <= STMP1 when Ci='0' else STMP2;
-  
-  
-    FAI1 : RCA
-	  generic map (DRCAS => DCSBS, DRCAC => DCSBC, NBIT => N_bits) 
-	  Port Map (A, B, '0', STMP1, open); 
- 
+	S <= STMP1 When Ci = '0' Else
+		STMP2;
+	FAI1 : RCA
+	Generic Map(NBIT => N_bits)
+	Port Map(A, B, '0', STMP1, Open);
 
-
-    FAI2 : RCA
-	  generic map (DRCAS => DCSBS, DRCAC => DCSBC, NBIT => N_bits) 
-	  Port Map (A, B, '1', STMP2, open); 
-  
-
-end STRUCTURAL;
-
-
-
+	FAI2 : RCA
+	Generic Map(NBIT => N_bits)
+	Port Map(A, B, '1', STMP2, Open);
+End STRUCTURAL;
