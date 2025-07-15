@@ -4,6 +4,8 @@
 `include "driver.sv"
 `include "scoreboard.sv"
 `include "monitor.sv"
+`include "sequencer.sv"
+
 import uvm_pkg::*;
 
 class env extends uvm_env;
@@ -12,6 +14,7 @@ class env extends uvm_env;
    driver drv; // Driver component
    scoreboard sb; // Scoreboard component
    monitor mon; // Monitor component
+   sequencer seqr; // Sequencer component
 
    function new(string name, uvm_component parent);
       super.new(name, parent);
@@ -21,17 +24,22 @@ class env extends uvm_env;
       super.build_phase(phase);
 
       // Create components
+      seqr = sequencer::type_id::create("seqr", this);
       drv = driver::type_id::create("drv", this);
       sb = scoreboard::type_id::create("sb", this);
-      mon = monitor::type_id::create("mon", this);
+      mon = monitor::type_id::create("mon", this); 
    endfunction
 
    function void connect_phase(uvm_phase phase);
       super.connect_phase(phase);
 
+      // Connect the driver to the sequencer
+      drv.seq_item_port.connect(seqr.seq_item_export);
+      
       // Connect the driver to the scoreboard
       mon.ap.connect(sb.sb_port);
    endfunction
 
-endclass  
+endclass
+
 `endif // ENVIRONMENT_SV

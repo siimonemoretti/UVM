@@ -1,6 +1,7 @@
 `ifndef TB_TOP_SV
 `define TB_TOP_SV
 `include "uvm_macros.svh"
+`include "test.sv"
 import uvm_pkg::*;
 
 module tb_top;
@@ -17,7 +18,7 @@ module tb_top;
       .N_BIT(N_BIT),
       .N_BPB(N_BPB)
    ) adder_wrap_inst (
-      .adder_if(adder_if_inst)
+      .p(adder_if_inst.adder_port)
    );
 
    initial begin 

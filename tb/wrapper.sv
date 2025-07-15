@@ -24,15 +24,15 @@ module adder_wrap #(
    adder_if.adder_port p
 );
 
-   adder #(
+   p4_adder #(
       .N_BIT(N_BIT),
       .N_BPB(N_BPB)
    ) adder_inst ( 
-      .A      (p.adder_a),
-      .B      (p.adder_b),
-      .CIN    (p.adder_cin),
-      .COUT   (p.adder_cout),
-      .SUM    (p.adder_sum)
+      .A       (p.adder_a),
+      .B       (p.adder_b),
+      .C_IN    (p.adder_cin),
+      .C_OUT   (p.adder_cout),
+      .SUM     (p.adder_sum)
    );
 
 endmodule
