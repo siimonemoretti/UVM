@@ -43,6 +43,7 @@ compile_file "vlog" "../tb/monitor.sv"
 compile_file "vlog" "../tb/scoreboard.sv"
 compile_file "vlog" "../tb/environment.sv"
 compile_file "vlog" "../tb/sequence.sv"
+compile_file "vlog" "../tb/sequencer.sv"
 compile_file "vlog" "../tb/test.sv"
 compile_file "vlog" "../tb/tb_top.sv"
 

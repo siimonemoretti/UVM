@@ -1,4 +1,7 @@
 # .gitignore
 
 # Ignore build directories
+sim/*
+!sim/compile.sh
+!sim/sim.do
 sim/work/*
