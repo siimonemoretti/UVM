@@ -12,12 +12,9 @@ interface adder_if #(
    logic [N_BIT-1:0] adder_sum;
 
    // Define the adder port
-   modport adder_port {
-      input  logic [N_BIT-1:0] adder_a;
-      input  logic [N_BIT-1:0] adder_b;
-      input  logic adder_cin;
-      output logic adder_cout;
-      output logic [N_BIT-1:0] adder_sum;
-   };
+   modport adder_port (
+      input  adder_a, adder_b, adder_cin,
+      output adder_cout, adder_sum
+   );
 
 endinterface

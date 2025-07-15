@@ -1,5 +1,5 @@
 /*
- * file: adder_wrapper.sv
+ * file: wrapper.sv
  * description: This module wraps the VHDL adder module to provide a SystemVerilog interface.
  */
 
