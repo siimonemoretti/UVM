@@ -15,6 +15,14 @@ class monitor extends uvm_monitor;
       ap = new("ap", this);
    endfunction
    
+   function void build_phase(uvm_phase phase);
+      super.build_phase(phase);
+      // Get the virtual interface from the configuration database
+      if (!uvm_config_db#(virtual adder_if)::get(this, "", "adder_if_inst", vif)) begin
+         `uvm_fatal("MONITOR", "Virtual interface not found in config DB")
+      end
+   endfunction
+
    // Main method to monitor the DUT
    task run_phase(uvm_phase phase);
       transaction tr;
@@ -24,6 +32,13 @@ class monitor extends uvm_monitor;
          tr = transaction::type_id::create("tr");
          tr.c_out = vif.adder_cout;
          tr.sum = vif.adder_sum;
+         tr.a = vif.adder_a;
+         tr.b = vif.adder_b;
+         tr.c_in = vif.adder_cin;
+
+         `uvm_info("MONITOR", $sformatf("Captured transaction: a=%0d, b=%0d, c_in=%0d, sum=%0d, c_out=%0b",
+                                         tr.a, tr.b, tr.c_in, tr.sum, tr.c_out), UVM_LOW);
+
          // Send the transaction to the analysis port
          ap.write(tr);
       end

@@ -28,9 +28,19 @@ class driver extends uvm_driver #(transaction);
    virtual task run_phase(uvm_phase phase);
       transaction tr;
       super.run_phase(phase);
+
+      `uvm_info("DRIVER", "Driver started", UVM_LOW);
+
+      if (vif == null) begin
+         `uvm_fatal("DRIVER", "Virtual interface is not set")
+      end
+
       forever begin
+         `uvm_info("DRIVER", "Waiting for next item...", UVM_LOW);
          // Wait for a transaction to be available
          seq_item_port.get_next_item(tr);
+
+         `uvm_info("DRIVER", $sformatf("Driving transaction: a=%0d, b=%0d, c_in=%0d", tr.a, tr.b, tr.c_in), UVM_LOW);
 
          // Drive the inputs to the DUT (via the interface)
          vif.adder_a = tr.a;
@@ -38,9 +48,10 @@ class driver extends uvm_driver #(transaction);
          vif.adder_cin = tr.c_in;
 
          #1;
-
+         
          // Indicate that the item has been processed
          seq_item_port.item_done();
+         `uvm_info("DRIVER", "Transaction completed", UVM_LOW);
       end
    endtask
 

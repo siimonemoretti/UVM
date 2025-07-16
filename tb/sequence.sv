@@ -14,7 +14,7 @@ class adder_sequence extends uvm_sequence#(transaction);
 
    task body();
       transaction tr;
-      repeat (10) begin
+      repeat (100) begin
          tr = transaction::type_id::create("tr");
          assert(tr.randomize());
          start_item(tr);
