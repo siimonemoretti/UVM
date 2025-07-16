@@ -5,3 +5,7 @@ sim/*
 !sim/compile.sh
 !sim/sim.do
 sim/work/*
+
+# Don't ignore coverage files
+!sim/code_coverage.ucdb
+!sim/covhtmlreport/
