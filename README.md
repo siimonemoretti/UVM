@@ -2,12 +2,27 @@
 
 This repository contains a UVM-based testbench for a P4 adder. The testbench is designed to verify the functionality of a P4-based adder implementation.
 
-## Included Files
+## Included Files
+
+Here's a brief overview of the files and directories in this repository:
 
 - [`src/`](./src/) **- Adder source files**
 - [`tb/`](./tb/) **- UVM testbench files**
+   - [`driver.sv.sv`](./tb/driver.sv.sv) - Defines the driver class, which is responsible for driving the inputs to the DUT (Device Under Test). Here the interface is declared as virtual because the driver is simply a class and not a module, so it cannot have ports but it needs handles to indirectly access the DUT's signals. 
+   - [`environment.sv.sv`](./tb/environment.sv.sv) - 
+   - [`interface.sv.sv`](./tb/interface.sv.sv) - Interface between the VHDL adder and SystemVerilog UVM testbench.
+   - [`monitor.sv.sv`](./tb/monitor.sv.sv) - 
+   - [`scoreboard.sv.sv`](./tb/scoreboard.sv.sv) - 
+   - [`sequencer.sv.sv`](./tb/sequencer.sv.sv) - 
+   - [`sequence.sv.sv`](./tb/sequence.sv.sv) - 
+   - [`tb_top.sv.sv`](./tb/tb_top.sv.sv) - (MODULE) Here the interface and the wrapper are instantiated. Then it sets the virtual interface in the UVM configuration database and runs the test defined in the `test.sv` file.
+   - [`test.sv.sv`](./tb/test.sv.sv) - 
+   - [`transaction.sv.sv`](./tb/transaction.sv.sv) - 
+   - [`wrapper.sv.sv`](./tb/wrapper.sv.sv) - (MODULE)
 - [`sim/`](./sim/) **- Simulation macros**
    - [`compile.sh`](./sim/compile.sh) - This script compiles the P4 source files (VHDL) and the UVM testbench. This is to be runned before running the simulation.
+   - [`run.sh`](./sim/run.sh) - This script runs the simulation also saving code coverage. 
+   - [`sim.do`](./sim/sim.do) - This is needed to run the simulation in ModelSim. It is sourced by the `run.sh` script.
 
 ## Simulation instructions, without GUI
 
@@ -19,4 +34,9 @@ This repository contains a UVM-based testbench for a P4 adder. The testbench is 
 2. Compile the P4 source files and the UVM testbench:
    ```bash
    ./compile.sh
+   ```
+
+3. Run the simulation:
+   ```bash
+   ./run.sh
    ```
