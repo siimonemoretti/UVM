@@ -22,14 +22,10 @@ module tb_top;
    );
 
    initial begin 
-      // Print that the simulation is starting
-      $display("Starting UVM testbench...");
       // Initialize the virtual interface
       uvm_config_db#(virtual adder_if)::set(null, "*", "adder_if_inst", adder_if_inst);
-      $display("Virtual interface set in config DB");
-      
+      // Start the UVM testbench
       run_test("test");
-      $display("UVM testbench completed.");
    end
 endmodule
 
