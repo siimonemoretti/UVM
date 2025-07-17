@@ -4,6 +4,7 @@
 sim/*
 !sim/compile.sh
 !sim/sim.do
+!sim/run.sh
 sim/work/*
 
 # Don't ignore coverage files
