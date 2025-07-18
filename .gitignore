@@ -1,12 +1,14 @@
 # .gitignore
 
+# For the Adder project
+
 # Ignore build directories
-sim/*
-!sim/compile.sh
-!sim/sim.do
-!sim/run.sh
-sim/work/*
+adder/sim/*
+!adder/sim/compile.sh
+!adder/sim/sim.do
+!adder/sim/run.sh
+adder/sim/work/*
 
 # Don't ignore coverage files
-!sim/code_coverage.ucdb
-!sim/covhtmlreport/
+!adder/sim/code_coverage.ucdb
+!adder/sim/covhtmlreport/
