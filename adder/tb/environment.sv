@@ -5,6 +5,7 @@
 `include "scoreboard.sv"
 `include "monitor.sv"
 `include "sequencer.sv"
+`include "cov_subscriber.sv"
 
 import uvm_pkg::*;
 
@@ -15,6 +16,7 @@ class env extends uvm_env;
    scoreboard sb; // Scoreboard component
    monitor mon; // Monitor component
    sequencer seqr; // Sequencer component
+   adder_coverage cov_subscriber; // Coverage subscriber
 
    function new(string name, uvm_component parent);
       super.new(name, parent);
@@ -29,6 +31,7 @@ class env extends uvm_env;
       drv = driver::type_id::create("drv", this);
       sb = scoreboard::type_id::create("sb", this);
       mon = monitor::type_id::create("mon", this); 
+      cov_subscriber = adder_coverage::type_id::create("cov_subscriber", this);
    endfunction
 
    function void connect_phase(uvm_phase phase);
@@ -42,6 +45,9 @@ class env extends uvm_env;
       
       // Connect the driver to the scoreboard
       mon.ap.connect(sb.sb_port);
+
+      // Connect agent to subscriber's analysis port
+      mon.ap.connect(cov_subscriber.analysis_export);
    endfunction
 
 endclass
